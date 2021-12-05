@@ -210,9 +210,9 @@ function detectType(decodedText) {
 function copyToClipboard(decodedText) {
     navigator.clipboard.writeText(decodedText)
         .then(function() {
-            showBanner("Text copied");
+            showBanner("Yazı Kopyalandı");
         }).catch(function(error) {
-            showBanner("Failed to copy", false);
+            showBanner("Kopyalama Başarısız", false);
         });
 }
 //#endregion
