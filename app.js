@@ -433,6 +433,39 @@ docReady(function() {
 
     function onScanSuccess(decodedText, decodedResult) {
         console.log(decodedText, decodedResult);
+
+        // su
+        if(decodedText == "8690793010038"){
+            console.log("su")
+        }
+
+        // diş macunu
+        if(decodedText == "8001841787015"){
+            console.log("diş macunu")
+        }
+
+        // gofret
+        if(decodedText == "8690787511015"){
+            console.log("gofret")
+        }
+
+        // zuber
+        if(decodedText == "8681630105017"){
+            console.log("zuber")
+        }
+
+        // kuruyemiş
+        if(decodedText == "8690787181232"){
+            console.log("kuruyemiş")
+        }
+
+        //süt
+        if(decodedText == "8690565007556"){
+            console.log("süt")
+            var audio = new Audio('süt.mp3');
+            audio.play();
+        }
+
         if (html5QrcodeScanner.getState() 
             !== Html5QrcodeScannerState.NOT_STARTED) {
             html5QrcodeScanner.pause();
