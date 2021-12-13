@@ -3,7 +3,7 @@ let TYPE_URL = "URL";
 let TYPE_PHONE = "PHONE NUMBER";
 let TYPE_WIFI = "WIFI";
 let TYPE_UPI = "UPI";
-
+var audio
 //#region Gtag event handler
 let Logger = {
     logScanStart: function()  {
@@ -36,7 +36,9 @@ let Logger = {
     logActionCopy: function() {
         gtag('event', 'Action-Copy', {});
     },
-
+    logActionStop: function() {
+        gtag('event', 'Action-Stop', {});
+    },
     logActionShare: function() {
         gtag('event', 'Action-Share', {});
         gtag('event', 'share', {});
@@ -73,7 +75,7 @@ function hideBanners(e) {
 
 function shareResult(decodedText, decodedResultType) {
     const shareData = {
-        title: "Scan result from Scanapp.org",
+        title: "Qr Code Okuyucu",
         text: decodedText,
     };
 
@@ -82,9 +84,9 @@ function shareResult(decodedText, decodedResultType) {
     }
 
     navigator.share(shareData).then(function() {
-        showBanner("Shared successfully");
+        showBanner("Paylaşım Başarılı");
     }).catch(function(error) {
-        showBanner("Sharing cancelled or failed", false);
+        showBanner("Paylaşım başarısız ya da iptal oldu.", false);
     });
 }
 //#endregion
@@ -280,6 +282,8 @@ let QrResult = function(onCloseCallback) {
 
     let actionShareImage = document.getElementById("action-share");
     let actionCopyImage = document.getElementById("action-copy");
+    let actionStopImage = document.getElementById("action-stop");
+
     let actionPaymentImage = document.getElementById("action-payment");
     let scanResultClose = document.getElementById("scan-result-close");
     let noResultContainer = document.getElementById("no-result-container");
@@ -323,6 +327,13 @@ let QrResult = function(onCloseCallback) {
         var upiLink = decodeURIComponent(lastScan.text);
         location.href = upiLink;
         showBanner("Payment action only works if UPI payment apps are installed.");
+        Logger.logPaymentAction();
+    });
+
+    actionStopImage.addEventListener("click", function(event) {
+        hideBanners();
+        audio.pause();
+        showBanner("Ses başarıyla durduruldu!");
         Logger.logPaymentAction();
     });
 
@@ -437,32 +448,42 @@ docReady(function() {
         // su
         if(decodedText == "8690793010038"){
             console.log("su")
+            audio = new Audio('./music/su.mp3');
+            audio.play();
         }
 
         // diş macunu
         if(decodedText == "8001841787015"){
             console.log("diş macunu")
+            audio = new Audio('./music/diş macunu.mp3');
+            audio.play();
         }
 
         // gofret
         if(decodedText == "8690787511015"){
             console.log("gofret")
+            audio = new Audio('./music/gofret.mp3');
+            audio.play();
         }
 
         // zuber
         if(decodedText == "8681630105017"){
             console.log("zuber")
+            audio = new Audio('./music/zuber.mp3');
+            audio.play();
         }
 
         // kuruyemiş
         if(decodedText == "8690787181232"){
             console.log("kuruyemiş")
+            audio = new Audio('./music/kuruyemiş.mp3');
+            audio.play();
         }
 
         //süt
         if(decodedText == "8690565007556"){
             console.log("süt")
-            var audio = new Audio('süt.mp3');
+            audio = new Audio('./music/süt.mp3');
             audio.play();
         }
 
